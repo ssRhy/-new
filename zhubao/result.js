@@ -87,8 +87,57 @@ document.addEventListener('DOMContentLoaded', async function() {
         let result = `
             <div class="result-section">
                 <h3>基本信息</h3>
-                <p>八字: ${data.八字}</p>
-                <p>日主: ${data.日主}</p>
+                <p>八字：${data.八字}</p>
+                <p>日主：${data.日主}</p>
+            </div>
+        `;
+
+        // 添加五行分析可视化
+        if (data.五行强弱) {
+            result += `
+                <div class="result-section">
+                    <h3>五行分析</h3>
+                    <div class="wuxing-chart">
+                        <div class="element-circle element-wood">
+                            木
+                            <span class="element-value">${data.五行强弱['木']?.toFixed(1) || '0.0'}</span>
+                        </div>
+                        <div class="element-circle element-fire">
+                            火
+                            <span class="element-value">${data.五行强弱['火']?.toFixed(1) || '0.0'}</span>
+                        </div>
+                        <div class="element-circle element-earth">
+                            土
+                            <span class="element-value">${data.五行强弱['土']?.toFixed(1) || '0.0'}</span>
+                        </div>
+                        <div class="element-circle element-metal">
+                            金
+                            <span class="element-value">${data.五行强弱['金']?.toFixed(1) || '0.0'}</span>
+                        </div>
+                        <div class="element-circle element-water">
+                            水
+                            <span class="element-value">${data.五行强弱['水']?.toFixed(1) || '0.0'}</span>
+                        </div>
+                        <div class="relationship-line"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 五行喜忌信息
+        result += `
+            <div class="result-section">
+                <h3>五行喜忌</h3>
+                <div class="wuxing-info">
+                    <div class="wuxing-item">
+                        <div class="wuxing-item-title">喜用神</div>
+                        <div class="wuxing-item-content">${data.五行喜忌.喜用神}</div>
+                    </div>
+                    <div class="wuxing-item">
+                        <div class="wuxing-item-title">忌神</div>
+                        <div class="wuxing-item-content">${data.五行喜忌.忌神}</div>
+                    </div>
+                </div>
             </div>
         `;
 
@@ -107,17 +156,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         result += `
             <div class="result-section">
-                <h3>五行分析</h3>
-                <pre>${wuxingStrength}</pre>
-            </div>
-
-            <div class="result-section">
-                <h3>五行喜忌</h3>
-                <p>喜用神: ${data.五行喜忌.喜用神}</p>
-                <p>忌神: ${data.五行喜忌.忌神}</p>
-            </div>
-
-            <div class="result-section">
                 <h3>幸运数字</h3>
                 <div class="lucky-numbers">
                     ${Array.isArray(data.幸运数字) && data.幸运数字.length > 0 ? 
@@ -131,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <h3>今日幸运色</h3>
                 <div class="lucky-color">
                     <div class="color-display" style="background-color: ${data.幸运颜色.color}">
-                        <span class="color-code">${data.幸运颜色.color}</span>
+                        
                     </div>
                     <p class="color-strategy">${data.幸运颜色.strategy}</p>
                 </div>
