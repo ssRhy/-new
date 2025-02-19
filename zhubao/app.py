@@ -1,10 +1,18 @@
 import requests
 import datetime
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 #flask框架与前端对接
 app = Flask(__name__)
 CORS(app)  # 启用CORS支持
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/result.html')
+def result():
+    return render_template('result.html')
 
 # ==================== 基础数据配置 ====================
 TIANGAN_WUXING = {
@@ -543,7 +551,7 @@ def analyze_bazi():
             
     except Exception as e:
         return jsonify({'error': f'请求处理失败: {str(e)}'}), 400
-#把主程序入口换成这个
+# ==================== 基础数据配置 ====================
 if __name__ == "__main__":
     app.debug = True
     app.run(host='127.0.0.1', port=5000)

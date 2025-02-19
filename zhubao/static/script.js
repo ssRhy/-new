@@ -1,5 +1,3 @@
-// script.js
-
 // Popup functionality
 function openPopup() {
     document.getElementById('popupOverlay').style.display = 'flex';
